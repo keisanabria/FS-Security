@@ -22,7 +22,10 @@ LOW - Not required, but a preference
 HIGH - Must be done and it takes a lot of effort to complete
 
 <!-- In progress -->
-- In step 2
+- In step 2, doing Total_Calories of the steps that professor sent me through e-mail and annotations I made
+    * Agrupando los grupos de calorias en los age intervals (Me quede verificando la respuesta de ChatGPT para saber si hacer el promedio de las calorias o buscar
+    otro approach que sea mas exacto [if just to sumar las calorias])
+    * Verificando los nombres de variables en Section 2.1 para ver cuales son de hombres y mujeres para cada county subdivision
 
 Personal notes:
 API User Guide [1] - Guidelines
