@@ -25,6 +25,7 @@
 4. Make the map interactive so that it updates the map according to the data extracted from step 3
 5. HIGH - Pass the maps to Wordpress
 6. AFTER - Fix README.md to be readable in GitHub
+7. LOW - Verify if .venv can be activated when the user runs the program so that it can run smoothly
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -37,10 +38,11 @@ Priority of tasks:
 
 ### In progress:
 - Check how to get the results of the variables that I need for the gender of calories (printing the list)
-- Verify that the code to be implemented into Wordpress won't required for me to change anything within my Python code
+- Verify that the code to be implemented into Wordpress won't required for me to change anything within my Python code AND that it won't take long because if it does, then I need to speedrun the steps to take in the data
     * I have an idea that it will be pulled from my GitHub repository
     * Search this up on ChatGPT for a quick checkup
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
+- Change total_calories' last code block to start from the first line intead of the name of the variable
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -50,7 +52,7 @@ API User Guide [1] - Guidelines
 - Total population group name: P1_001N
 
 ### Requirements
-- Have python 3.12.5
+- Have python 3.12.5+
 - Install geopandas, matplotlib, mapclassify, requests
 
 ### Requirements for Windows when activating .venv 
@@ -69,21 +71,21 @@ Note: To run this code, it is recommended to install and activate .venv for a sm
 
 ### Section 2.1
 Variable names that are being used for the population:
-- DP05_0005E	Estimate!!SEX AND AGE!!Total population!!Under 5 years
-- DP05_0006E	Estimate!!SEX AND AGE!!Total population!!5 to 9 years
-- DP05_0007E	Estimate!!SEX AND AGE!!Total population!!10 to 14 years
-- DP05_0008E	Estimate!!SEX AND AGE!!Total population!!15 to 19 years
-- DP05_0009E	Estimate!!SEX AND AGE!!Total population!!20 to 24 years
-- DP05_0010E	Estimate!!SEX AND AGE!!Total population!!25 to 34 years
-- DP05_0011E	Estimate!!SEX AND AGE!!Total population!!35 to 44 years
-- DP05_0012E	Estimate!!SEX AND AGE!!Total population!!45 to 54 years
-- DP05_0013E	Estimate!!SEX AND AGE!!Total population!!55 to 59 years
-- DP05_0014E	Estimate!!SEX AND AGE!!Total population!!60 to 64 years
-- DP05_0015E	Estimate!!SEX AND AGE!!Total population!!65 to 74 years
-- DP05_0016E	Estimate!!SEX AND AGE!!Total population!!75 to 84 years
-- DP05_0017E	Estimate!!SEX AND AGE!!Total population!!85 years and over
-- DP05_0002PE	Percent!!SEX AND AGE!!Total population!!Male
-- DP05_0003PE	Percent!!SEX AND AGE!!Total population!!Female
+1. DP05_0005E	Estimate!!SEX AND AGE!!Total population!!Under 5 years
+2. DP05_0006E	Estimate!!SEX AND AGE!!Total population!!5 to 9 years
+3. DP05_0007E	Estimate!!SEX AND AGE!!Total population!!10 to 14 years
+4. DP05_0008E	Estimate!!SEX AND AGE!!Total population!!15 to 19 years
+5. DP05_0009E	Estimate!!SEX AND AGE!!Total population!!20 to 24 years
+6. DP05_0010E	Estimate!!SEX AND AGE!!Total population!!25 to 34 years
+7. DP05_0011E	Estimate!!SEX AND AGE!!Total population!!35 to 44 years
+8. DP05_0012E	Estimate!!SEX AND AGE!!Total population!!45 to 54 years
+9. DP05_0013E	Estimate!!SEX AND AGE!!Total population!!55 to 59 years
+10. DP05_0014E	Estimate!!SEX AND AGE!!Total population!!60 to 64 years
+11. DP05_0015E	Estimate!!SEX AND AGE!!Total population!!65 to 74 years
+12. DP05_0016E	Estimate!!SEX AND AGE!!Total population!!75 to 84 years
+13. DP05_0017E	Estimate!!SEX AND AGE!!Total population!!85 years and over
+14. DP05_0002PE	Percent!!SEX AND AGE!!Total population!!Male
+15. DP05_0003PE	Percent!!SEX AND AGE!!Total population!!Female
 
 ### Section 2.2
 Hubieron cambios que se tuvieron que hacer para que la poblacion por edad cayera dentro de los generos porque esta data no se encuentra en
