@@ -23,7 +23,7 @@
         * Make sure that for the step of updating according to the release date is scheduled according to the following website: https://www.census.gov/programs-surveys/acs/news/data-releases/2021/release-schedule.html
 
 4. Make the map interactive so that it updates the map according to the data extracted from step 3
-5. HIGH - Pass the maps to Wordpress
+5. HIGH - Pass the maps to Wordpress. More information about this on reference link [6]
 6. AFTER - Fix README.md to be readable in GitHub
 7. LOW - Verify if .venv can be activated when the user runs the program so that it can run smoothly
 
@@ -37,12 +37,10 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- Check how to get the results of the variables that I need for the gender of calories (printing the list)
-- Verify that the code to be implemented into Wordpress won't required for me to change anything within my Python code AND that it won't take long because if it does, then I need to speedrun the steps to take in the data
-    * I have an idea that it will be pulled from my GitHub repository
-    * Search this up on ChatGPT for a quick checkup
+- Change the map to use Folium and do a little run to check that with the data shown in the Excel of 'Inseguridad por Barrio 2022', it works
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
 - Change total_calories' last code block to start from the first line intead of the name of the variable
+- Implement the data into the map
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -53,7 +51,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, matplotlib, mapclassify, requests
+- Install geopandas, matplotlib, mapclassify, requests, pandas, pathlib, folium
 
 ### Requirements for Windows when activating .venv 
 - Run $Set-ExecutionPolicy Unrestricted -Scope Process
@@ -65,7 +63,8 @@ Note: To run this code, it is recommended to install and activate .venv for a sm
 [2] https://www2.census.gov/about/training-workshops/2020/2020-07-22-cedsci-presentation.pdf
 [3] https://portal.nifa.usda.gov/web/crisprojectpages/1029124-food-security-and-agricultural-research-data-center.html 
 [4] https://data.census.gov/table/ACSDP5Y2023.DP05?q=DP05:%20ACS%20Demographic%20and%20Housing%20Estimates&g=040XX00US72$0600000 
-[5] https://chatgpt.com/c/67059f1b-90dc-8011-a7c0-cf5c2501c251 (Chat named: Sorting GeoDataFrame Column)
+[5] https://chatgpt.com/share/675f46fe-9334-8011-aba7-b02d3ffad84a (Chat named: Sorting GeoDataFrame Column)
+[6] https://chatgpt.com/share/675f4648-ca64-8011-8120-ee3d45e2ef63 (Chat named: Display Map from GitHub)
 
 ## Section 2
 

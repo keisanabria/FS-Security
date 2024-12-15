@@ -1,6 +1,8 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import mapclassify
+import folium
+from total_calories import pd
 
 # Variables
 dimensions = gpd.read_file("data/dimensions/tl_2022_72_cousub.zip") # Dimensions of Puerto Rico
@@ -39,12 +41,6 @@ def replace_legend_items(legend, mapping):
             for k, v in mapping.items():
                 if txt.get_text() == str(k):
                     txt.set_text(v)
-
-# ----------------------------------------------------------------------------------------------
-
-# Space reserved for code of the interaction with CENSUS API
-
-# ----------------------------------------------------------------------------------------------
 
 def createMap():
     # Create the map and color it according to the 'quantile_class' column
