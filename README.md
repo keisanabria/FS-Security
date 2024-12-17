@@ -26,6 +26,7 @@
 5. HIGH - Pass the maps to Wordpress. More information about this on reference link [6]
 6. AFTER - Fix README.md to be readable in GitHub
 7. LOW - Verify if .venv can be activated when the user runs the program so that it can run smoothly
+8. LOW - Change this line (gdf.to_file("data/dimensions/geometry.geojson", driver="GeoJSON") # Export to GeoJSON) in mapCreation.py to check if that file exists. If it does, then don't recreate it.
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -37,7 +38,11 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- Change the map to use Folium and do a little run to check that with the data shown in the Excel of 'Inseguridad por Barrio 2022', it works
+- Change the map to use Plotly and do a little run to check that with the data shown in the Excel of 'Inseguridad por Barrio 2022', it works
+    * Reading last response of ChatGPT: https://chatgpt.com/c/67607689-4e50-8011-bb85-009a83d44437 
+    * try with other geoids
+    * Watch yt videos of how to create map of Puerto Rico using plotly express
+- Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
 - Change total_calories' last code block to start from the first line intead of the name of the variable
 - Implement the data into the map
@@ -51,7 +56,10 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, matplotlib, mapclassify, requests, pandas, pathlib, folium
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo, pyshp, dash, json, openpyxl
+
+### Command to activate .venv - for a smoother run experience
+$.venv/Scripts/activate 
 
 ### Requirements for Windows when activating .venv 
 - Run $Set-ExecutionPolicy Unrestricted -Scope Process
@@ -91,3 +99,13 @@ Hubieron cambios que se tuvieron que hacer para que la poblacion por edad cayera
 el CENSUS API [4]. Los cambios que se hicieron en los pasos que proveyo el profesor fue anadir un paso extra:
     Numero de hombres en X rango de edades = Poblacion en X rango de edades * (Porcentaje de hombres/100)
     Numero de feminas en X rango de edades = Poblacion en X rango de edades * (Porcentaje de feminas/100)
+
+## Information on syntaxes:
+
+### Geopandas
+.columns = returns df's columns
+.rows = returns df's rows
+
+### Python
+- if __name__ == "__main__":
+    This is used to prevent a code block from being executed when importing that code block's module to another module.

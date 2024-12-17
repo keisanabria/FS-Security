@@ -8,6 +8,8 @@ from mapCreation import gpd
     # etc. 
 counties = gpd.read_file("data/countyInfo.zip")
 
+print(counties.columns)
+
 indexPRcounties = [   5,   80,  204,  255,  259,  278,  381,  408,  409,  427,  430,  463,
         476,  486,  508,  529,  539,  541,  875,  904,  905,  928,  956,  966,
         970, 1100, 1102, 1144, 1182, 1202, 1239, 1282, 1320, 1405, 1406, 1407,

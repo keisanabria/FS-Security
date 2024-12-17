@@ -42,4 +42,5 @@ for var in df.iloc[:, 1]:
 # Go through list of elements to make sure I get the information I need per lists (subCous) within the list
 for varName in varNames:
     index = indexVarNames[varName]
-    print(df.iloc[index])
+    if __name__ == "__main__":
+        print(df.iloc[index]) # Print rows of the variable names that I need
