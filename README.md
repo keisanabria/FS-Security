@@ -38,10 +38,7 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- Change the map to use Plotly and do a little run to check that with the data shown in the Excel of 'Inseguridad por Barrio 2022', it works
-    * Reading last response of ChatGPT: https://chatgpt.com/c/67607689-4e50-8011-bb85-009a83d44437 
-    * try with other geoids
-    * Watch yt videos of how to create map of Puerto Rico using plotly express
+- try checking the code with chatgpt one last time, then change to folium, then check for another library
 - Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
 - Change total_calories' last code block to start from the first line intead of the name of the variable

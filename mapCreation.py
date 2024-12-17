@@ -9,12 +9,11 @@ import json
 dimensions = gpd.read_file("data/dimensions/tl_2022_72_cousub.zip") # Dimensions of Puerto Rico
 food = gpd.read_file("data/food/inseguridad por barrio 2022 data.xlsx") # Information of Food Security of Puerto Rico
 
-def preMods(dimensions, food):
-    # Sort the dimensions to be according to the GEOID in ascending order
-    geoID_sorted = dimensions.sort_values(by='GEOID', ascending=True)
-    print(geoID_sorted)
-    dimensions = geoID_sorted
+# Sort the dimensions to be according to the GEOID in ascending order
+geoID_sorted = dimensions.sort_values(by='GEOID', ascending=True)
+dimensions = geoID_sorted
 
+def preMods(dimensions, food):
     # Rename column that has GEOID from "food" to be used as a common key
     food = food.rename(columns = { "GEOID,C,10" : "GEOID"})
 
@@ -33,6 +32,13 @@ def preMods(dimensions, food):
     return merge
 
 merge = preMods(dimensions, food)
+
+# TESTING PURPOSES
+# ----------------------------------------------------------------------------
+merge['STATE&COUNTYFP'] = dimensions['STATEFP'] + dimensions['COUNTYFP']
+merge['COUSUBFP'] = dimensions['COUSUBFP']
+# Changed line 82,100
+# ----------------------------------------------------------------------------
 
 # Classify the percentages in 8 quantiles
 q8 = mapclassify.Quantiles(merge['isec_percentage_hosedolds'], k=8)
@@ -82,7 +88,7 @@ for index, row in merge.iterrows():
     geojson_data["features"].append(feature)
 
 # Write GeoJSON to a file
-with open("data/dimensions/geometry.geojson", "w") as f:
+with open("data/dimensions/mapInfo.geojson", "w") as f:
     json.dump(geojson_data, f)
 
 def createMap():
@@ -98,12 +104,13 @@ def createMap():
     # Create choropleth map
     fig = px.choropleth(
         df, 
-        geojson="data/dimensions/geometry.geojson",  # Path to GeoJSON for Puerto Rico regions
+        geojson=geojson_data,  # Path to GeoJSON for Puerto Rico regions
         locations='geoid',  # The column from df that contains the geoids
         featureidkey="properties.GEOID",
         color='color',  # Quantile class for each value
         color_discrete_sequence=colorscale,  # Set a discrete green color scale
         projection='mercator',
+        # center = {"lat": 18.2208, "lon": -66.5901}, # Puerto Rico's longitude and latitude
         title="Test",  # Title for the map
         labels={'value': 'Test values'}  # Set legend label for the values
     )
@@ -118,3 +125,5 @@ def createMap():
 
     # Show the figure
     fig.show()
+
+# f.close()
