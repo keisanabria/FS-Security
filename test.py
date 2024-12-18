@@ -16,6 +16,7 @@ app.layout = html.Div([
     dcc.Graph(id="graph"),
 ])
 
+print(px.data.election())
 
 @app.callback(
     Output("graph", "figure"), 
@@ -24,9 +25,13 @@ def display_choropleth(candidate):
     df = px.data.election() # replace with your own data source
     geojson = px.data.election_geojson()
     fig = px.choropleth(
-        df, geojson=geojson, color=candidate,
-        locations="district", featureidkey="properties.district",
-        projection="mercator", range_color=[0, 6500])
+        df, 
+        geojson=geojson, 
+        color=candidate,
+        locations="district", 
+        featureidkey="properties.district",
+        projection="mercator", 
+        range_color=[0, 6500])
     fig.update_geos(fitbounds="locations", visible=False)
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return fig
