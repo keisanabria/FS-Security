@@ -7,7 +7,8 @@
 2. [...]
 
 ### TO-DO:
-1. LOW - Change the size of the edges of the map for it to be thin around the map
+<!-- 1. LOW - Change the size of the edges of the map for it to be thin around the map -->
+* !!! Haven't reorganized the number of steps because step 4 and maybe others rely on the number of the steps
 2. HIGH - Get the data that is supposed to be in the map (URLs, keys, etc.)
 3. Make the data that is being extracted for the map to update progressively as the years come and take the data from the years before (check if there is a better method to do this than having to save the information to a csv file because it will take a lot of data as the years come)
     * One method is explained in the last two responses of ChatGPT [5].
@@ -41,11 +42,11 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- I am going to change to a method where I use the map I had already made before and it will stay static, the only thing that changes is that the mapCreation will be called by a function where the user chooses what map to show up 
-    * Simultaneously, pass the map to Wordpress
+- Check how to pass what is being hosted on Dash to Wordpress
     * Uninstall the libraries I don't need anymore and put back the ones I was using before
 - Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
+    * mapCreation will be called by a function where the user chooses what map to show up 
 - Change total_calories' last code block to start from the first line intead of the name of the variable
 - Implement the data into the map
 
@@ -59,7 +60,8 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo, pyshp, dash, json, openpyxl
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly*, shapely*, plotly-geo*, pyshp*, dash, json, openpyxl*
+    * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### Command to activate .venv - for a smoother run experience
 $.venv/Scripts/activate 
