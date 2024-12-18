@@ -1,18 +1,25 @@
 import geopandas as gpd
-import plotly.express as px
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 import mapclassify
-import numpy as np
-import pandas as pd
-import json
 
 # Variables
 dimensions = gpd.read_file("data/dimensions/tl_2022_72_cousub.zip") # Dimensions of Puerto Rico
 food = gpd.read_file("data/food/inseguridad por barrio 2022 data.xlsx") # Information of Food Security of Puerto Rico
 
-# Sort the dimensions to be according to the GEOID in ascending order
+# Filter the shapefile to include only land areas (ALAND > 0)
+land_only = dimensions[dimensions['ALAND'] > 0]
+
+# Save the filtered data to a new shapefile
+output_path = "data/dimensions/filtered_land_coordinates.shp"
+land_only.to_file(output_path)
+dimensions = gpd.read_file(output_path)
+
+# Sort the dimensions to be according to the GEOID in ascending order so that the GEOIDs are in the same order as the Excel sheet
 geoID_sorted = dimensions.sort_values(by='GEOID', ascending=True)
 dimensions = geoID_sorted
 
+# This is just pre-modifications made for the information to go on par with the Excel sheet
 def preMods(dimensions, food):
     # Rename column that has GEOID from "food" to be used as a common key
     food = food.rename(columns = { "GEOID,C,10" : "GEOID"})
@@ -20,8 +27,8 @@ def preMods(dimensions, food):
     # Cambiar "dimensions" data type to int64
     dimensions["GEOID"] = dimensions["GEOID"].astype('int64')
 
-    # Merge con GEOID as the common key
-    merge = food.merge(dimensions, on=["GEOID"], how="left")
+    # Perform an inner merge to keep only matching rows
+    merge = food.merge(dimensions, on=['GEOID'], how='inner')
 
     # Convert the result back to a GeoDataFrame, using the geometry from dimensions
     merge = gpd.GeoDataFrame(merge, geometry=dimensions.geometry)
@@ -33,113 +40,63 @@ def preMods(dimensions, food):
 
 merge = preMods(dimensions, food)
 
-# TESTING PURPOSES
-# ----------------------------------------------------------------------------
-merge['STATE&COUNTYFP'] = dimensions['STATEFP'] + dimensions['COUNTYFP']
-merge['COUSUBFP'] = dimensions['COUSUBFP']
-merge['COUNTYFP'] = dimensions['COUNTYFP']
-merge['NAME'] = dimensions['COUSUBFP']+'-'+dimensions['NAME']
-# Changed line 82,100
-# ----------------------------------------------------------------------------
-
 # Classify the percentages in 8 quantiles
 q8 = mapclassify.Quantiles(merge['isec_percentage_hosedolds'], k=8)
-merge['quantile_class'] = q8.yb # Add quantile classes to the GeoDataFrame 
 
-# Shade for each quantile class (8)
-colorscale = [[0, '#98FF98'],[1, '#98FB98'],[2, '#90EE90'],[3, '#3CB371'],[4, '#228B22'],[5, '#556B2F'],[6, '#006400'],[7, '#013220']]
+# Create the mapping for the legend
+mapping = dict([(i, s) for i, s in enumerate(q8.get_legend_classes())])
 
-# Assign a color to each row in merge['color'] based on quantile_class
-merge['color'] = merge['quantile_class'].apply(lambda x: colorscale[x])
+# Replace the default legend items to Quantiles of 8 classes
+def replace_legend_items(legend, mapping):
+    if legend:
+        for txt in legend.texts:
+            for k, v in mapping.items():
+                if txt.get_text() == str(k):
+                    txt.set_text(v)
 
-endpts = list(np.linspace(0, q8.bins[len(q8.bins)-1], len(colorscale) - 1))
-values = merge['isec_percentage_hosedolds'].astype(int).tolist()
+# ----------------------------------------------------------------------------------------------
 
-# Convert GEOID in merge to string for consistency with GeoJSON
-merge['GEOID'] = merge['GEOID'].astype(str)
+# Space reserved for code of the interaction with CENSUS API
 
-# Convert to WGS84 CRS for compatibility
-merge = merge.to_crs(epsg=4326)
-
-# Creating a GeoJSON structure for specific regions
-geojson_data = {
-    "type": "FeatureCollection",
-    "features": []
-}
-
-# Since the data of geoid will be extracted from the CENSUS API, (...)
-# (...) the GEOID in "properties" of the geojson will eventually be changed to this
-import subCouInfo
-geoids = subCouInfo.getGeoids()
-
-# Loop through each region and add it to the GeoJSON structure
-for index, row in merge.iterrows():
-    feature = {
-        "type": "Feature",
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": row['geometry'].__geo_interface__['coordinates']
-        },
-        "properties": {
-            "GEOID": str(row['COUSUBFP']),
-            "name": row['NAME'],
-            "food_insecurity": row['isec_percentage_hosedolds'],
-            "color": row['color']
-        }
-    }
-    geojson_data["features"].append(feature)
-
-# Write GeoJSON to a file
-with open("data/dimensions/mapInfo.geojson", "w") as f:
-    json.dump(geojson_data, f)
-
-# print(colorscale)
-# print(merge['color'])
-# print(merge['quantile_class'])
+# ----------------------------------------------------------------------------------------------
 
 def createMap():
+    # Define the hex colors for the legend
+    legend_colors = ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e', '#78c679', '#41ab5d', '#238443', '#005a32']
     
-    # Create a DataFrame from geoids, values, and quantile classes
-    df = pd.DataFrame({
-        'geoid': merge['COUSUBFP'],
-        'value': values,
-        'quantile_class': merge['quantile_class'],
-        'color' : merge['color'],
-        'name' : merge['NAME']
-    })
+    # Create a figure and axes for custom size
+    fig, ax = plt.subplots(1, 1, figsize=(12, 8))  # Adjust 'figsize' for map size in the saved image
 
-    # color_map = {
-    #     values : merge['color']
-    # }
-    
-    # Create choropleth map
-    fig = px.choropleth(
-        data_frame=df, 
-        geojson=geojson_data,  # Path to GeoJSON for Puerto Rico regions
-        locations='geoid',  # The column from df that contains the geoids
-        # locationmode='geojson-id',
-        # lat=18.2208,
-        # lon=-66.5901,
-        featureidkey="properties.geoid",
-        color="value", # Changed to int64 for testing purposes
-        # colorscale=colorscale,
-        # autocolorscale=False,
-        # color_continuous_scale="Greens",
-        # color_discrete_sequence=colorscale,  # Set a discrete green color scale
-        projection='mercator',
-        range_color=[df['value'].min(), df['value'].max()]
-        # center = {"lat": 18.2208, "lon": -66.5901}, # Puerto Rico's longitude and latitude
-        # title="Test",  # Title for the map
-        # labels={'value': 'Test values'}  # Set legend label for the values
-    )
-    
-    # Adjust layout and show the map
-    fig.update_geos(
-        fitbounds="locations", 
-        visible=False
+    # Create the map and color it according to the 'quantile_class' column
+    PRmap = merge.assign(cl=q8.yb).plot(
+        column="cl", 
+        categorical=True, 
+        cmap=plt.cm.get_cmap('YlGn', len(legend_colors)),  # Create a colormap with the exact number of colors
+        legend=False,  # Turn off the default legend
+        linewidth=1.1,
+        edgecolor='black',
+        ax=ax  # Use the custom axes
     )
 
-    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    # Create a custom legend with the specified color patches
+    legend_handles = []
+    for i, label in enumerate(q8.get_legend_classes()):
+        # Use the corresponding hex color for each quantile class
+        color = legend_colors[i]
+        patch = mpatches.Patch(color=color, label=label)  # Create a patch with the corresponding color
+        legend_handles.append(patch)
 
-    # Show the figure
-    fig.show()
+    # Add the custom legend beside the map
+    legend = ax.legend(
+        handles=legend_handles,  # Use the custom color patches
+        loc="upper left",  # Legend location
+        bbox_to_anchor=(1, 1),  # Position beside the map
+        title="Food Security Classes",  # Add a title for the legend
+        frameon=False  # Optional: remove the legend box frame
+    )
+
+    # Save the figure as a PNG file with custom DPI for output resolution
+    plt.savefig("assets/2022map.png", format="png", dpi=300, bbox_inches='tight')  # dpi controls image resolution
+
+    # Uncomment this when wanting to display the plot (Testing purposes)
+    # plt.show()

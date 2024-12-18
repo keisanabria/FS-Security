@@ -27,6 +27,9 @@
 6. AFTER - Fix README.md to be readable in GitHub
 7. LOW - Verify if .venv can be activated when the user runs the program so that it can run smoothly
 8. LOW - Change this line (gdf.to_file("data/dimensions/geometry.geojson", driver="GeoJSON") # Export to GeoJSON) in mapCreation.py to check if that file exists. If it does, then don't recreate it.
+9. HIGH - Put an order of which modules have to be executed so that the map can be created
+    mapCreation.py > main.py
+    imageListGenerator.py > dashInteraction.py
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -38,7 +41,9 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- try checking the code with chatgpt one last time, then change to folium, then check for another library
+- I am going to change to a method where I use the map I had already made before and it will stay static, the only thing that changes is that the mapCreation will be called by a function where the user chooses what map to show up 
+    * Simultaneously, pass the map to Wordpress
+    * Uninstall the libraries I don't need anymore and put back the ones I was using before
 - Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
 - Change total_calories' last code block to start from the first line intead of the name of the variable
@@ -50,6 +55,7 @@ API User Guide [1] - Guidelines
     - Page 16 includes instructions of the last step on how to handle the URL of the API
 - Page 35-36 [2] contains information of all the common ACS API Variables
 - Total population group name: P1_001N
+- Reference [7] gave a lot of details about how to work with Dash when the image does not show.
 
 ### Requirements
 - Have python 3.12.5+
@@ -70,6 +76,7 @@ Note: To run this code, it is recommended to install and activate .venv for a sm
 [4] https://data.census.gov/table/ACSDP5Y2023.DP05?q=DP05:%20ACS%20Demographic%20and%20Housing%20Estimates&g=040XX00US72$0600000 
 [5] https://chatgpt.com/share/675f46fe-9334-8011-aba7-b02d3ffad84a (Chat named: Sorting GeoDataFrame Column)
 [6] https://chatgpt.com/share/675f4648-ca64-8011-8120-ee3d45e2ef63 (Chat named: Display Map from GitHub)
+[7] https://chatgpt.com/share/67630cf7-12b8-8011-a192-5ba70e7abe4c
 
 ## Section 2
 
