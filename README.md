@@ -31,6 +31,8 @@
 9. HIGH - Put an order of which modules have to be executed so that the map can be created
     mapCreation.py > main.py
     imageListGenerator.py > dashInteraction.py
+10. HIGH - Change the buttons of the Dash app to show the years of the map on the button-dropdown
+11. Add toml
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -43,7 +45,6 @@ Priority of tasks:
 
 ### In progress:
 - Check how to pass what is being hosted on Dash to Wordpress
-    * Uninstall the libraries I don't need anymore and put back the ones I was using before
 - Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
 - Construct the code that will implement the json url links to come to have it set up antes de implementing the data
     * mapCreation will be called by a function where the user chooses what map to show up 
@@ -57,11 +58,21 @@ API User Guide [1] - Guidelines
 - Page 35-36 [2] contains information of all the common ACS API Variables
 - Total population group name: P1_001N
 - Reference [7] gave a lot of details about how to work with Dash when the image does not show.
+- Other ways to host an app, other than Render.com:
+    * https://www.reddit.com/r/datascience/comments/rwrfmk/deploy_dash_app_for_free/
+    * https://www.pythonanywhere.com/
+    * Simply search up "how to host dash app for free"
+- How to refresh the requirements.txt whenever a library is installed
+    $pip freeze > requirements.txt
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly*, shapely*, plotly-geo*, pyshp*, dash, json, openpyxl*
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely*, plotly-geo*, pyshp*, dash, json, openpyxl*
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
+
+### How to install dependencies (libraries)
+1. Use the following command in a new environment (e.g. .venv) to install all the dependencies listed in the file:
+    $pip install -r requirements.txt
 
 ### Command to activate .venv - for a smoother run experience
 $.venv/Scripts/activate 

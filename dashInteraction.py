@@ -1,5 +1,3 @@
-# import dash
-# from dash import dcc, html, Input, Output
 import imageListGenerator
 import dash
 from dash import dcc, html
@@ -12,15 +10,6 @@ app = dash.Dash(__name__)
 images = imageListGenerator.getImages()
 
 # Layout
-# app.layout = html.Div([
-#     html.H1("Select an Image"),
-#     dcc.Dropdown(
-#         id="image-dropdown",
-#         options=[{"label": key, "value": value} for key, value in images.items()],
-#         value=list(images.values())[0]
-#     ),
-#     html.Img(id="image-display", style={"width": "500px", "height": "auto"})
-# ])
 app.layout = html.Div([
     dcc.Dropdown(
         id="image-dropdown",
@@ -49,4 +38,4 @@ def update_image(selected_image):
     return selected_image
 
 # Run the app
-app.run_server(debug=True)
+app.run_server(host="127.0.0.1", port=8080, debug=True)
