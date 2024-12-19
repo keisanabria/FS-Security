@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 
 # Create the Dash app
 app = dash.Dash(__name__)
+server = app.server
 
 # List of images
 images = imageListGenerator.getImages()
