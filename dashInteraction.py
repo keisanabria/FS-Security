@@ -39,4 +39,5 @@ def update_image(selected_image):
     return selected_image
 
 # Run the app
-app.run_server(host="127.0.0.1", port=8080, debug=True)
+# app.run_server(host="127.0.0.1", port=8080, debug=True)
+app.run_server(host="0.0.0.0", port=8080, debug=True) # Change to 0.0.0.0 to make it available for Render.com
