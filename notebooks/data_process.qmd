@@ -1,0 +1,38 @@
+---
+title: "Data procecing"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+```{python}
+import os
+os.chdir("..")
+```
+
+```{python}
+import geopandas as gpd
+import pandas as pd
+from src.data.data_process import DataGeo
+import plotly.express as px
+```
+
+```{python}
+d = DataGeo()
+gdf = d.pr_merge()
+gdf
+```
+
+
+```{python}
+fig = px.choropleth_map(gdf, geojson=gdf.geometry, locations=gdf.index, color='total_calories',
+                           color_continuous_scale="Viridis",
+                           map_style="carto-positron",
+                           labels={'total_calories':'Total Calaries'},
+                           center={"lat": 18.2606, "lon": -66.3962},
+                           zoom=7.5
+                          )
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+fig.show()
+```

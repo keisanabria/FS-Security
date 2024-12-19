@@ -1,8 +1,8 @@
-import mapCreation
+from src.mapCreation import createMap
 
 # Show map 
 def main() -> None:
-    mapCreation.createMap()
+    createMap()
 
 if __name__ == "__main__":
     main()
