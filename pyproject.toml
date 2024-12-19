@@ -1,0 +1,22 @@
+[project]
+name = "fs-security"
+authors = [{ name = "", email = "temp@example.com" }]
+maintainers = [
+  { name = "Alejandro Ouslan", email = "alejandro.ouslan@upr.edu" },
+]
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dash>=2.18.2",
+    "geopandas>=1.0.1",
+    "mapclassify>=2.8.1",
+    "matplotlib>=3.10.0",
+    "requests>=2.32.3",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1",
+]
