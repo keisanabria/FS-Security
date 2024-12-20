@@ -23,6 +23,8 @@
 
         * Make sure that for the step of updating according to the release date is scheduled according to the following website: https://www.census.gov/programs-surveys/acs/news/data-releases/2021/release-schedule.html
 
+        * Create a function that calls the createMap function according to the new updated data
+
 4. Make the map interactive so that it updates the map according to the data extracted from step 3
 5. HIGH - Pass the maps to Wordpress. More information about this on reference link [6]
 6. AFTER - Fix README.md to be readable in GitHub
@@ -32,7 +34,9 @@
     mapCreation.py > main.py
     imageListGenerator.py > dashInteraction.py
 10. HIGH - Change the buttons of the Dash app to show the years of the map on the button-dropdown
-11. Add toml
+11. HIGH - Change this to make the csv according to the year (e.g. '2023perPerSubCou')
+12. Create collapse of data from total_calories [8]
+13. Personalize the toml files from Ouslam's branch
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -44,11 +48,9 @@ Priority of tasks:
 - AFTER - Task to be done after finishing the project
 
 ### In progress:
-- Check how to pass what is being hosted on Dash to Wordpress
-- Change total calories population information to be taken from (https://data.census.gov/table/ACSDT5Y2023.B01001?q=B01001:%20Sex%20by%20Age&g=040XX00US72$0600000) instead. So as to not do Section 2.2.
-- Construct the code that will implement the json url links to come to have it set up antes de implementing the data
-    * mapCreation will be called by a function where the user chooses what map to show up 
+- Do total_calories steps of professor [8]
 - Change total_calories' last code block to start from the first line intead of the name of the variable
+- Do first step of professor [8]
 - Implement the data into the map
 
 Personal notes:
@@ -67,7 +69,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely*, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)
@@ -90,32 +92,62 @@ Note: To run this code, it is recommended to install and activate .venv for a sm
 [5] https://chatgpt.com/share/675f46fe-9334-8011-aba7-b02d3ffad84a (Chat named: Sorting GeoDataFrame Column)
 [6] https://chatgpt.com/share/675f4648-ca64-8011-8120-ee3d45e2ef63 (Chat named: Display Map from GitHub)
 [7] https://chatgpt.com/share/67630cf7-12b8-8011-a192-5ba70e7abe4c
+[8] https://outlook.office.com/mail/id/AAQkADg3ODZlNWM3LTM3ZTItNGUyOS05MDI1LTJmYTU4NGVlZTY4ZQAQAL81162xZvlEiasxtrIs%2F1w%3D 
 
 ## Section 2
 
 ### Section 2.1
 Variable names that are being used for the population:
-1. DP05_0005E	Estimate!!SEX AND AGE!!Total population!!Under 5 years
-2. DP05_0006E	Estimate!!SEX AND AGE!!Total population!!5 to 9 years
-3. DP05_0007E	Estimate!!SEX AND AGE!!Total population!!10 to 14 years
-4. DP05_0008E	Estimate!!SEX AND AGE!!Total population!!15 to 19 years
-5. DP05_0009E	Estimate!!SEX AND AGE!!Total population!!20 to 24 years
-6. DP05_0010E	Estimate!!SEX AND AGE!!Total population!!25 to 34 years
-7. DP05_0011E	Estimate!!SEX AND AGE!!Total population!!35 to 44 years
-8. DP05_0012E	Estimate!!SEX AND AGE!!Total population!!45 to 54 years
-9. DP05_0013E	Estimate!!SEX AND AGE!!Total population!!55 to 59 years
-10. DP05_0014E	Estimate!!SEX AND AGE!!Total population!!60 to 64 years
-11. DP05_0015E	Estimate!!SEX AND AGE!!Total population!!65 to 74 years
-12. DP05_0016E	Estimate!!SEX AND AGE!!Total population!!75 to 84 years
-13. DP05_0017E	Estimate!!SEX AND AGE!!Total population!!85 years and over
-14. DP05_0002PE	Percent!!SEX AND AGE!!Total population!!Male
-15. DP05_0003PE	Percent!!SEX AND AGE!!Total population!!Female
-
-### Section 2.2
-Hubieron cambios que se tuvieron que hacer para que la poblacion por edad cayera dentro de los generos porque esta data no se encuentra en
-el CENSUS API [4]. Los cambios que se hicieron en los pasos que proveyo el profesor fue anadir un paso extra:
-    Numero de hombres en X rango de edades = Poblacion en X rango de edades * (Porcentaje de hombres/100)
-    Numero de feminas en X rango de edades = Poblacion en X rango de edades * (Porcentaje de feminas/100)
+1. B01001_003E	Estimate!!Total:!!Male:!!Under 5 years
+2. B01001_004E	Estimate!!Total:!!Male:!!5 to 9 years
+3. B01001_005E	Estimate!!Total:!!Male:!!10 to 14 years
+4. B01001_006E	Estimate!!Total:!!Male:!!15 to 17 years
+5. B01001_007E	Estimate!!Total:!!Male:!!18 and 19 years
+6. B01001_008E	Estimate!!Total:!!Male:!!20 years
+7. B01001_009E	Estimate!!Total:!!Male:!!21 years
+8. B01001_010E	Estimate!!Total:!!Male:!!22 to 24 years
+9. B01001_011E	Estimate!!Total:!!Male:!!25 to 29 years
+10. B01001_012E	Estimate!!Total:!!Male:!!30 to 34 years
+11. B01001_013E	Estimate!!Total:!!Male:!!35 to 39 years
+12. B01001_014E	Estimate!!Total:!!Male:!!40 to 44 years
+13. B01001_015E	Estimate!!Total:!!Male:!!45 to 49 years
+14. B01001_016E	Estimate!!Total:!!Male:!!50 to 54 years
+15. B01001_017E	Estimate!!Total:!!Male:!!55 to 59 years
+16. B01001_018E	Estimate!!Total:!!Male:!!60 and 61 years
+17. B01001_019E	Estimate!!Total:!!Male:!!62 to 64 years
+18. B01001_020E	Estimate!!Total:!!Male:!!65 and 66 years
+19. B01001_021E	Estimate!!Total:!!Male:!!67 to 69 years
+20. B01001_022E	Estimate!!Total:!!Male:!!70 to 74 years
+21. B01001_023E	Estimate!!Total:!!Male:!!75 to 79 years
+22. B01001_024E	Estimate!!Total:!!Male:!!80 to 84 years
+23. B01001_025E	Estimate!!Total:!!Male:!!85 years and over
+------------------------------------------------------------
+24. B01001_027E	Estimate!!Total:!!Female:!!Under 5 years
+25. B01001_028E	Estimate!!Total:!!Female:!!5 to 9 years
+26. B01001_029E	Estimate!!Total:!!Female:!!10 to 14 years
+27. B01001_030E	Estimate!!Total:!!Female:!!15 to 17 years
+28. B01001_031E	Estimate!!Total:!!Female:!!18 and 19 years
+29. B01001_032E	Estimate!!Total:!!Female:!!20 years
+30. B01001_033E	Estimate!!Total:!!Female:!!21 years
+31. B01001_034E	Estimate!!Total:!!Female:!!22 to 24 years
+32. B01001_035E	Estimate!!Total:!!Female:!!25 to 29 years
+33. B01001_036E	Estimate!!Total:!!Female:!!30 to 34 years
+34. B01001_037E	Estimate!!Total:!!Female:!!35 to 39 years
+35. B01001_038E	Estimate!!Total:!!Female:!!40 to 44 years
+36. B01001_039E	Estimate!!Total:!!Female:!!45 to 49 years
+37. B01001_040E	Estimate!!Total:!!Female:!!50 to 54 years
+38. B01001_041E	Estimate!!Total:!!Female:!!55 to 59 years
+39. B01001_042E	Estimate!!Total:!!Female:!!60 and 61 years
+40. B01001_043E	Estimate!!Total:!!Female:!!62 to 64 years
+41. B01001_044E	Estimate!!Total:!!Female:!!65 and 66 years
+42. B01001_045E	Estimate!!Total:!!Female:!!67 to 69 years
+43. B01001_046E	Estimate!!Total:!!Female:!!70 to 74 years
+44. B01001_047E	Estimate!!Total:!!Female:!!75 to 79 years
+45. B01001_048E	Estimate!!Total:!!Female:!!80 to 84 years
+46. B01001_049E	Estimate!!Total:!!Female:!!85 years and over
+-------------------------------------------------------------
+47. DP05_0002PE	Percent!!SEX AND AGE!!Total population!!Male
+48. DP05_0003PE	Percent!!SEX AND AGE!!Total population!!Female
 
 ## Information on syntaxes:
 
