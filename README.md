@@ -37,6 +37,7 @@
 11. HIGH - Change this to make the csv according to the year (e.g. '2023perPerSubCou')
 12. Create collapse of data from total_calories [8]
 13. Personalize the toml files from Ouslam's branch
+14. DUMP - Remove the verifyFile() , cleaningData() from total_calories.py since a module for the same function was created
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -46,6 +47,7 @@ Priority of tasks:
 - LOW - Not required, but a preference
 - HIGH - Must be done and it takes a lot of effort to complete
 - AFTER - Task to be done after finishing the project
+- DUMP - To reduce space
 
 ### In progress:
 - Do total_calories steps of professor [8]
@@ -148,6 +150,20 @@ Variable names that are being used for the population:
 -------------------------------------------------------------
 47. DP05_0002PE	Percent!!SEX AND AGE!!Total population!!Male
 48. DP05_0003PE	Percent!!SEX AND AGE!!Total population!!Female
+
+### Section 2.2
+1. DP03_0051E	Estimate!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households
+2. DP03_0051PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households
+3. DP03_0052PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!Less than $10,000	
+4. DP03_0053PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$10,000 to $14,999	
+5. DP03_0054PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$15,000 to $24,999	
+6. DP03_0055PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$25,000 to $34,999	
+7. DP03_0056PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$35,000 to $49,999	
+8. DP03_0057PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$50,000 to $74,999	
+9. DP03_0058PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$75,000 to $99,999	
+10. DP03_0059PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$100,000 to $149,999	
+11. DP03_0060PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$150,000 to $199,999	
+12. DP03_0061PE	Percent!!INCOME AND BENEFITS (IN 2023 INFLATION-ADJUSTED DOLLARS)!!Total households!!$200,000 or more
 
 ## Information on syntaxes:
 

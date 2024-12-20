@@ -1,32 +1,14 @@
-import censusAPI
-from pathlib import Path
 import pandas as pd
 import geopandas as gpd
+import verifyFile
 
 # !!! More information about this module in Section 2.1 of README.md
 
 popPerSubCou = "data/live_data/popPerSubCou.csv"
 perPerSubCou = "data/live_data/perPerSubCou.csv"
 
-# Verify if the data to be used is already a CSV file
-def verifyFile(fileName1, fileName2):
-    file_path1 = Path(fileName1)
-    file_path2 = Path(fileName2)
-
-    # Check if the first file exists
-    if not file_path1.exists():
-        print(f"{fileName1} does not exist. Calling popPerSubCou to create it.")
-        censusAPI.popPerSubCou()
-
-    # Check if the second file exists
-    if not file_path2.exists():
-        print(f"{fileName2} does not exist. Calling perPerSubCou to create it.")
-        censusAPI.perPerSubCou()
-
-    # Return True only if both files exist
-    return file_path1.exists() and file_path2.exists()
-
-verifyFile(popPerSubCou, perPerSubCou)
+verifyFile.verifyFile(popPerSubCou)
+verifyFile.verifyFile(perPerSubCou)
 
 pop_df = pd.read_csv(popPerSubCou) # Read the CSV file into a DataFrame
 per_df = pd.read_csv(perPerSubCou)
