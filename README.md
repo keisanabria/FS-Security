@@ -50,10 +50,8 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- Do total_calories steps of professor [8]
-- Change total_calories' last code block to start from the first line intead of the name of the variable
-- Do first step of professor [8]
-- Implement the data into the map
+- Implement the data into the map to verify it is being extracted correctly
+- Implement the functions needed to make the map update periodically
 
 Personal notes:
 API User Guide [1] - Guidelines

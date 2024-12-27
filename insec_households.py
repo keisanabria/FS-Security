@@ -87,7 +87,8 @@ def multiply_elements_with_columns(df, multipliers):
 result = multiply_elements_with_columns(grouping_income, per_income_list)
 
 per_insec_households = result['Menos de $15,000'] + result['$15,000 a $24,999'] + result['$25,000 a $34,999'] + result['$35,000 o más']
-# esti_insec_households = multiply_data_manually(per_insec_households, multiplier)
 
-print(per_insec_households)
-print(multiplier)
+per_insec_households_df = pd.DataFrame(per_insec_households) # Create a df so that it can be multiplied with the multiplier since it was previously a Series
+esti_insec_households = multiply_data_manually(per_insec_households_df, multiplier)
+
+# Finished creating the relevant data needed, which are taken from: per_insec_households_df and esti_insec_households
