@@ -149,5 +149,10 @@ for index in range(len(cal_malePop)):
 
             totalCalories_df.at[index, col] = value + cal_femalePop.at[index, col]
 
-# Uncomment this to check the final result
-# print(totalCalories_df)
+# Take only the calories to be added
+totalCalories_df = totalCalories_df.iloc[:, 2:].reset_index(drop=True)
+
+# Sum for each subbarrio
+result = totalCalories_df.sum()
+
+# print(result)

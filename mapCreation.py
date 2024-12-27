@@ -2,6 +2,7 @@ import geopandas as gpd
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import mapclassify
+from total_calories import totalCalories_df
 
 # Variables
 dimensions = gpd.read_file("data/dimensions/tl_2022_72_cousub.zip") # Dimensions of Puerto Rico
