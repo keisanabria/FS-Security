@@ -5,13 +5,10 @@ import verifyFile
 # !!! More information about this module in Section 2.1 of README.md
 
 popPerSubCou = "data/live_data/popPerSubCou.csv"
-perPerSubCou = "data/live_data/perPerSubCou.csv"
 
 verifyFile.verifyFile(popPerSubCou)
-verifyFile.verifyFile(perPerSubCou)
 
 pop_df = pd.read_csv(popPerSubCou) # Read the CSV file into a DataFrame
-per_df = pd.read_csv(perPerSubCou)
 
 varGroup = {  
     1: "B01001_"
@@ -22,10 +19,6 @@ popVarNames = [
     f"{varGroup[1]}{str(i).zfill(3)}E"
     for i in range(3, 50)
     if i != 26  # Exclude 026
-]
-perVarNames = [
-    "DP05_0002PE",
-    "DP05_0003PE"
 ]
 
 def getIndices(df, varNames):
@@ -42,7 +35,6 @@ def getIndices(df, varNames):
 
 # Dictionary with indices of varNames
 indicesPopVar = getIndices(pop_df, popVarNames)
-indicesPerVar = getIndices(per_df, perVarNames)
 
 # TESTING ---------------------------------------------------------------------------------------------------------------
 
@@ -58,7 +50,6 @@ def verifyData(df, varNames, indexVarNames):
     #         print(df.iloc[index]) # Print rows of the variable names that I need
 
 verifyData(pop_df, popVarNames, indicesPopVar)
-verifyData(per_df, perVarNames, indicesPerVar)
 
 # -----------------------------------------------------------------------------------------------------------------------
 
@@ -87,7 +78,6 @@ def cleaningData(df, indicesDict):
     return df
 
 cleanedPop = cleaningData(pop_df, indicesPopVar)
-cleanedPer = cleaningData(per_df, indicesPerVar)
 
 # CREATION OF DATA TO BE PRESENTED ----------------------------------------------------------------------------------------------------
 
@@ -154,5 +144,20 @@ totalCalories_df = totalCalories_df.iloc[:, 2:].reset_index(drop=True)
 
 # Sum for each subbarrio
 result = totalCalories_df.sum()
+result_df = pd.DataFrame({'total_calories': result})
 
-# print(result)
+# Extract the ucgids to be able to merge with the data to make the map
+ucgid = pop_df.iloc[198]
+
+# Take only the rows with the ucgid in them
+ucgid = ucgid.iloc[2:].reset_index(drop=True)
+
+# Convert to DataFrame with a proper column name
+ucgid = pd.DataFrame({'ucgid': ucgid})
+
+# Since the indices do not match, reset the index for result_df
+result_df = result_df.reset_index(drop=True)
+                      
+result_df['ucgid'] = ucgid['ucgid']
+
+# print(result_df)

@@ -3,7 +3,6 @@
 import verifyFile
 import pandas as pd
 import cleaningData
-import total_calories
 
 households = 'data/live_data/households.csv'
 verifyFile.verifyFile(households)
@@ -92,3 +91,21 @@ per_insec_households_df = pd.DataFrame(per_insec_households) # Create a df so th
 esti_insec_households = multiply_data_manually(per_insec_households_df, multiplier)
 
 # Finished creating the relevant data needed, which are taken from: per_insec_households_df and esti_insec_households
+
+# Extract the ucgids to be able to merge with the data to make the map
+ucgid = households_df.iloc[12]
+
+# Take only the rows with the ucgid in them
+ucgid = ucgid.iloc[2:].reset_index(drop=True)
+
+# Convert to DataFrame with a proper column name
+ucgid = pd.DataFrame({'ucgid': ucgid})
+
+# Since the indices do not match, reset the index for result_df
+per_insec_households_df = per_insec_households_df.reset_index(drop=True)
+esti_insec_households = esti_insec_households.reset_index(drop=True)
+                      
+per_insec_households_df['ucgid'] = ucgid['ucgid']
+esti_insec_households['ucgid'] = ucgid['ucgid']
+
+print(per_insec_households_df)

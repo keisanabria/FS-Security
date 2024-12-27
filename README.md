@@ -51,6 +51,8 @@ Priority of tasks:
 
 ### In progress:
 - Implement the data into the map to verify it is being extracted correctly
+    * Change the names of the columns from insec_households results (one of them can be changed in line 90)
+    * Add both columns so that they are all together with the ucgid
 - Implement the functions needed to make the map update periodically
 
 Personal notes:

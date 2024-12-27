@@ -2,11 +2,15 @@ import geopandas as gpd
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import mapclassify
-from total_calories import totalCalories_df
+from total_calories import result_df
+from subCouInfo import geoidfqCol
 
 # Variables
 dimensions = gpd.read_file("data/dimensions/tl_2022_72_cousub.zip") # Dimensions of Puerto Rico
-food = gpd.read_file("data/food/inseguridad por barrio 2022 data.xlsx") # Information of Food Security of Puerto Rico
+# food = gpd.read_file("data/food/inseguridad por barrio 2022 data.xlsx") # Information of Food Security of Puerto Rico
+
+# Add GEOIDFQs to dimensions to be able to merge with data
+dimensions['ucgid'] = geoidfqCol
 
 # Filter the shapefile to include only land areas (ALAND > 0)
 land_only = dimensions[dimensions['ALAND'] > 0]
@@ -16,33 +20,14 @@ output_path = "data/dimensions/filtered_land_coordinates.shp"
 land_only.to_file(output_path)
 dimensions = gpd.read_file(output_path)
 
-# Sort the dimensions to be according to the GEOID in ascending order so that the GEOIDs are in the same order as the Excel sheet
-geoID_sorted = dimensions.sort_values(by='GEOID', ascending=True)
-dimensions = geoID_sorted
+# Perform an inner merge to keep only matching rows
+merge = result_df.merge(dimensions, on=['ucgid'], how='inner')
 
-# This is just pre-modifications made for the information to go on par with the Excel sheet
-def preMods(dimensions, food):
-    # Rename column that has GEOID from "food" to be used as a common key
-    food = food.rename(columns = { "GEOID,C,10" : "GEOID"})
-
-    # Cambiar "dimensions" data type to int64
-    dimensions["GEOID"] = dimensions["GEOID"].astype('int64')
-
-    # Perform an inner merge to keep only matching rows
-    merge = food.merge(dimensions, on=['GEOID'], how='inner')
-
-    # Convert the result back to a GeoDataFrame, using the geometry from dimensions
-    merge = gpd.GeoDataFrame(merge, geometry=dimensions.geometry)
-
-    # Change the name of the subbarrios for the 'merge' gpd because they are written incorrectly in the Excel sheet
-    merge['NAME,C,100'] = dimensions['NAME']
-
-    return merge
-
-merge = preMods(dimensions, food)
+# Convert the result back to a GeoDataFrame, using the geometry from dimensions
+merge = gpd.GeoDataFrame(merge, geometry=dimensions.geometry)
 
 # Classify the percentages in 8 quantiles
-q8 = mapclassify.Quantiles(merge['isec_percentage_hosedolds'], k=8)
+q8 = mapclassify.Quantiles(merge['total_calories'], k=8)
 
 # Create the mapping for the legend
 mapping = dict([(i, s) for i, s in enumerate(q8.get_legend_classes())])
@@ -61,7 +46,8 @@ def replace_legend_items(legend, mapping):
 
 # ----------------------------------------------------------------------------------------------
 
-def createMap():
+# According to the data given, create the map and the title
+def createMap(data):
     # Define the hex colors for the legend
     legend_colors = ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e', '#78c679', '#41ab5d', '#238443', '#005a32']
     
@@ -92,7 +78,7 @@ def createMap():
         handles=legend_handles,  # Use the custom color patches
         loc="upper left",  # Legend location
         bbox_to_anchor=(1, 1),  # Position beside the map
-        title="Food Security Classes",  # Add a title for the legend
+        title=data,  # Add a title for the legend
         frameon=False  # Optional: remove the legend box frame
     )
 
