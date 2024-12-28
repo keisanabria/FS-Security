@@ -50,10 +50,8 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- Implement the data into the map to verify it is being extracted correctly
-    * Change the names of the columns from insec_households results (one of them can be changed in line 90)
-    * Add both columns so that they are all together with the ucgid
 - Implement the functions needed to make the map update periodically
+    * Left making changes to the main module to make it run total_calories and insec_households every year and commit the changes to git, more information on how to do this in ChatGPT chat [9]
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -71,7 +69,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)
@@ -86,7 +84,7 @@ $.venv/Scripts/activate
 
 Note: To run this code, it is recommended to install and activate .venv for a smoother run of the program
 
-<!-- References -->
+### References
 [1] https://www.census.gov/content/dam/Census/data/developers/api-user-guide/api-user-guide.pdf
 [2] https://www2.census.gov/about/training-workshops/2020/2020-07-22-cedsci-presentation.pdf
 [3] https://portal.nifa.usda.gov/web/crisprojectpages/1029124-food-security-and-agricultural-research-data-center.html 
@@ -95,6 +93,7 @@ Note: To run this code, it is recommended to install and activate .venv for a sm
 [6] https://chatgpt.com/share/675f4648-ca64-8011-8120-ee3d45e2ef63 (Chat named: Display Map from GitHub)
 [7] https://chatgpt.com/share/67630cf7-12b8-8011-a192-5ba70e7abe4c
 [8] https://outlook.office.com/mail/id/AAQkADg3ODZlNWM3LTM3ZTItNGUyOS05MDI1LTJmYTU4NGVlZTY4ZQAQAL81162xZvlEiasxtrIs%2F1w%3D 
+[9] https://chatgpt.com/share/67708be0-61e0-8011-b2b8-771151339a7e (Chat named: Correccion de progreso)
 
 ## Section 2
 

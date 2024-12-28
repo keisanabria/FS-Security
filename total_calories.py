@@ -1,14 +1,19 @@
 import pandas as pd
 import geopandas as gpd
 import verifyFile
+from datetime import datetime
 
 # !!! More information about this module in Section 2.1 of README.md
 
-popPerSubCou = "data/live_data/popPerSubCou.csv"
+# Get the current year
+current_year = datetime.now().year
 
-verifyFile.verifyFile(popPerSubCou)
+# API requires the previous year's data (as ACS releases lag by one year)
+acs_year = current_year - 1
 
-pop_df = pd.read_csv(popPerSubCou) # Read the CSV file into a DataFrame
+verifyFile.verifyFile(f"data/live_data/{acs_year}popPerSubCou.csv", 'popPerSubCou')
+
+pop_df = pd.read_csv(f"data/live_data/{acs_year}popPerSubCou.csv") # Read the CSV file into a DataFrame
 
 varGroup = {  
     1: "B01001_"
@@ -144,7 +149,7 @@ totalCalories_df = totalCalories_df.iloc[:, 2:].reset_index(drop=True)
 
 # Sum for each subbarrio
 result = totalCalories_df.sum()
-result_df = pd.DataFrame({'total_calories': result})
+calorie_df = pd.DataFrame({'total_calories': result})
 
 # Extract the ucgids to be able to merge with the data to make the map
 ucgid = pop_df.iloc[198]
@@ -155,9 +160,10 @@ ucgid = ucgid.iloc[2:].reset_index(drop=True)
 # Convert to DataFrame with a proper column name
 ucgid = pd.DataFrame({'ucgid': ucgid})
 
-# Since the indices do not match, reset the index for result_df
-result_df = result_df.reset_index(drop=True)
+# Since the indices do not match, reset the index for calorie_df
+calorie_df = calorie_df.reset_index(drop=True)
                       
-result_df['ucgid'] = ucgid['ucgid']
+calorie_df['ucgid'] = ucgid['ucgid']
 
-# print(result_df)
+def getTotalCalories():
+    return calorie_df

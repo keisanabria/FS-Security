@@ -2,11 +2,8 @@ from pathlib import Path
 import censusAPI
 
 # Verify if the data to be used is already a CSV file
-def verifyFile(fileName):
+def verifyFile(fileName, function_name):
     file_path = Path(fileName)
-
-    # Extract just the file name without the path
-    function_name = Path(fileName).stem  # This removes the file extension and path
 
     # Check if the file exists
     if not file_path.exists():

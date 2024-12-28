@@ -2,7 +2,7 @@ import geopandas as gpd
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import mapclassify
-from total_calories import result_df
+from total_calories import calorie_df
 from subCouInfo import geoidfqCol
 
 # Variables
@@ -21,7 +21,7 @@ land_only.to_file(output_path)
 dimensions = gpd.read_file(output_path)
 
 # Perform an inner merge to keep only matching rows
-merge = result_df.merge(dimensions, on=['ucgid'], how='inner')
+merge = calorie_df.merge(dimensions, on=['ucgid'], how='inner')
 
 # Convert the result back to a GeoDataFrame, using the geometry from dimensions
 merge = gpd.GeoDataFrame(merge, geometry=dimensions.geometry)

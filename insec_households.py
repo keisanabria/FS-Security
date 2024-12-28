@@ -3,11 +3,17 @@
 import verifyFile
 import pandas as pd
 import cleaningData
+from datetime import datetime
 
-households = 'data/live_data/households.csv'
-verifyFile.verifyFile(households)
+# Get the current year
+current_year = datetime.now().year
 
-households_df = pd.read_csv(households)
+# API requires the previous year's data (as ACS releases lag by one year)
+acs_year = current_year - 1
+
+verifyFile.verifyFile(f"data/live_data/{acs_year}households.csv", 'households')
+
+households_df = pd.read_csv(f"data/live_data/{acs_year}households.csv")
 
 # Categorize the variable names accordingly
 total_households = households_df.iloc[:1].reset_index(drop=True)
@@ -87,7 +93,7 @@ result = multiply_elements_with_columns(grouping_income, per_income_list)
 
 per_insec_households = result['Menos de $15,000'] + result['$15,000 a $24,999'] + result['$25,000 a $34,999'] + result['$35,000 o más']
 
-per_insec_households_df = pd.DataFrame(per_insec_households) # Create a df so that it can be multiplied with the multiplier since it was previously a Series
+per_insec_households_df = pd.DataFrame({'per_insec_households': per_insec_households}) # Create a df so that it can be multiplied with the multiplier since it was previously a Series
 esti_insec_households = multiply_data_manually(per_insec_households_df, multiplier)
 
 # Finished creating the relevant data needed, which are taken from: per_insec_households_df and esti_insec_households
@@ -103,9 +109,18 @@ ucgid = pd.DataFrame({'ucgid': ucgid})
 
 # Since the indices do not match, reset the index for result_df
 per_insec_households_df = per_insec_households_df.reset_index(drop=True)
-esti_insec_households = esti_insec_households.reset_index(drop=True)
-                      
-per_insec_households_df['ucgid'] = ucgid['ucgid']
-esti_insec_households['ucgid'] = ucgid['ucgid']
 
-print(per_insec_households_df)
+# Add the estimate of households into one df
+per_insec_households_df['esti_insec_households'] = esti_insec_households['per_insec_households']
+
+# Do the same with the ucgid
+per_insec_households_df['ucgid'] = ucgid['ucgid']
+
+# Rename the df to make more sense
+insec_households = per_insec_households_df
+
+# Created a variable called 'insec_households' which will hold all the data needed to (...)
+# (...) make maps of percentage of households with food insecurity and estimate of households with food insecurity  
+
+def getInsecHouseholds():
+    return insec_households
