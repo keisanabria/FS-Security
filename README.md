@@ -50,8 +50,12 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
+- Me quede arreglando linea 15 to 48 of main.py
 - Implement the functions needed to make the map update periodically
-    * Left making changes to the main module to make it run total_calories and insec_households every year and commit the changes to git, more information on how to do this in ChatGPT chat [9]
+    * Left making changes to the main module to make it run total_calories and insec_households every 
+    year and commit the changes to git, more information on how to do this in ChatGPT chat [9]
+- After testing, remove the ```acs_year = 2023
+from the following files: total_calories.py, update_data.py, and insec_households.py
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -65,22 +69,26 @@ API User Guide [1] - Guidelines
     * https://www.pythonanywhere.com/
     * Simply search up "how to host dash app for free"
 - How to refresh the requirements.txt whenever a library is installed
-    $pip freeze > requirements.txt
+    $
+    pip freeze > requirements.txt
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git, subprocess
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)
 1. Use the following command in a new environment (e.g. .venv) to install all the dependencies listed in the file:
-    $pip install -r requirements.txt
+    $
+    pip install -r requirements.txt
 
 ### Command to activate .venv - for a smoother run experience
-$.venv/Scripts/activate 
+$
+.venv/Scripts/activate 
 
 ### Requirements for Windows when activating .venv 
-- Run $Set-ExecutionPolicy Unrestricted -Scope Process
+- Run $
+Set-ExecutionPolicy Unrestricted -Scope Process
 
 Note: To run this code, it is recommended to install and activate .venv for a smoother run of the program
 
