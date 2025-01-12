@@ -2,15 +2,9 @@
 
 ## Section 1
 
-### STEPS ON HOW TO ACCESS CENSUS API [2]:
-1. Get access to a key (request a key)
-2. [...]
-
 ### TO-DO:
-<!-- 1. LOW - Change the size of the edges of the map for it to be thin around the map -->
-* !!! Haven't reorganized the number of steps because step 4 and maybe others rely on the number of the steps
-2. HIGH - Get the data that is supposed to be in the map (URLs, keys, etc.)
-3. Make the data that is being extracted for the map to update progressively as the years come and take the data from the years before (check if there is a better method to do this than having to save the information to a csv file because it will take a lot of data as the years come)
+[x] HIGH - Get the data that is supposed to be in the map (URLs, keys, etc.)
+[x] Make the data that is being extracted for the map to update progressively as the years come and take the data from the years before (check if there is a better method to do this than having to save the information to a csv file because it will take a lot of data as the years come)
     * One method is explained in the last two responses of ChatGPT [5].
 
         * Make sure to check that the data for that year is available and THEN update the map according to that
@@ -25,20 +19,16 @@
 
         * Create a function that calls the createMap function according to the new updated data
 
-4. Make the map interactive so that it updates the map according to the data extracted from step 3
-5. HIGH - Pass the maps to Wordpress. More information about this on reference link [6]
-6. AFTER - Fix README.md to be readable in GitHub
-7. LOW - Verify if .venv can be activated when the user runs the program so that it can run smoothly
-8. LOW - Change this line (gdf.to_file("data/dimensions/geometry.geojson", driver="GeoJSON") # Export to GeoJSON) in mapCreation.py to check if that file exists. If it does, then don't recreate it.
-9. HIGH - Put an order of which modules have to be executed so that the map can be created
-    mapCreation.py > main.py
-    imageListGenerator.py > dashInteraction.py
-10. HIGH - Change the buttons of the Dash app to show the years of the map on the button-dropdown
-11. HIGH - Change this to make the csv according to the year (e.g. '2023perPerSubCou')
-12. Create collapse of data from total_calories [8]
-13. Personalize the toml files from Ouslam's branch
-14. DUMP - Remove the verifyFile() , cleaningData() from total_calories.py since a module for the same function was created
-15. Use Render.com to deploy my website
+[x] Make the map interactive so that it updates the map according to the data extracted from the last step
+[ ] HIGH - Pass the maps to Wordpress. More information about this on reference link [6]
+[ ] AFTER - Fix README.md to be readable in GitHub
+[x] LOW - Verify if .venv can be activated when the user runs the program from GitHub so that it can run smoothly
+[x] HIGH - Change the buttons of the Dash app to show the years of the map on the button-dropdown
+[x] HIGH - Change this to make the csv according to the year (e.g. '2023perPerSubCou')
+[ ] Create collapse of data from total_calories [8]
+[ ] Personalize the toml files from Ouslam's branch
+[ ] DUMP - Remove the verifyFile() , cleaningData() from total_calories.py since a module for the same function was created
+[x] Use Render.com to deploy my website
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -51,16 +41,11 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- After testing, remove the ```acs_year = 2023
-from the following files: total_calories.py, update_data.py, and insec_households.py
-- Add the maps from years before
-- Edit the map creation so that Dash and Render.com show...
-    1. Year of the maps
-    2. Three maps with names
-        * This can be done either by:
-            (1) Doing a website for each map
-            (2) Doing three maps in one image
-            Whichever option is faster to make will be chosen.
+- Commit the changes, verify that the Render.com website works
+- Try to:
+    (1) do the collapse step from TO-DO 
+    (2) send e-mail to professor with update, letting him know of what I was/wasn't able to complete  
+  under the time I have left
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -79,7 +64,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, git
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, git, re
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)
@@ -186,3 +171,6 @@ Variable names that are being used for the population:
 ### Python
 - if __name__ == "__main__":
     This is used to prevent a code block from being executed when importing that code block's module to another module.
+
+## Creator notes:
+- This program creates the maps assuming that the data for the input year exists. If the CENSUS Beaureu does not create the data for that year, this program is sensitive to that, and it is a fault that has to be fixed.

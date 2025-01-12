@@ -14,29 +14,26 @@ images = imageListGenerator.getImages()
 app.layout = html.Div([
     dcc.Dropdown(
         id="image-dropdown",
-        options=[
-            {"label": key, "value": value} for key, value in images.items()],
-        value=list(images.values())[0]
+        options=[{"label": key, "value": key} for key in images.keys()],
+        value=list(images.keys())[0]
     ),
-    html.Div([
-        html.Img(id="image-display", 
-                 src=list(images.values())[0], 
-                 style={
-                "width": "100%",  # Adjusts the width to fit the screen
-                "height": "auto",  # Keeps the aspect ratio intact
-                "display": "block",  # Centers the image
-                "margin": "0 auto"  # Centers horizontally
-                })  # Initial image
-    ])
+    html.Div(id='image-display-container')
 ])
 
-# Callback to update the image
+# Callback to update images based on the dropdown value
 @app.callback(
-    Output("image-display", "src"),
-    Input("image-dropdown", "value")
+    Output('image-display-container', 'children'),
+    Input('image-dropdown', 'value'),
 )
-def update_image(selected_image):
-    return selected_image
+def update_images(selected_key):
+    # Get the list of images based on the selected key
+    image_paths = images[selected_key]
+    # Return the images in a column
+    return [
+        html.Img(src=image_paths[0], style={"width": "80%", "height": "auto", "display": "block", "margin": "10px auto"}),
+        html.Img(src=image_paths[1], style={"width": "80%", "height": "auto", "display": "block", "margin": "10px auto"}),
+        html.Img(src=image_paths[2], style={"width": "80%", "height": "auto", "display": "block", "margin": "10px auto"})
+    ]
 
 # Run the app
 app.run_server(host="0.0.0.0", port=8080, debug=True) # Changed to 0.0.0.0 to make it available for Render.com

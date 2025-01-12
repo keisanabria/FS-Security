@@ -2,7 +2,7 @@ name: Run Module and Commit
 
 on:
   schedule:
-    - cron: '59 23 31 12 *' # Runs at 11:59 PM on December 31st
+    - cron: '59 23 20 12 *' # Runs at 11:59 PM on December 20th (every year)
   workflow_dispatch: # Allows manual trigger
   push:
     branches:

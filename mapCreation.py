@@ -79,8 +79,8 @@ def createMap(mapName, data):
 
     acsYear = str(acs_year.getACS_year())
 
-    # Save the figure as a PNG file with custom DPI for output resolution
-    plt.savefig(f"assets/{acsYear}map.png", format="png", dpi=300, bbox_inches='tight')  # dpi controls image resolution
+    # Save the figure as a PNG file with custom DPI for output resolution (best quality for the image)
+    plt.savefig(f"assets/{acsYear}{mapName}map.png", format="png", dpi=300, bbox_inches='tight')  # dpi controls image resolution
 
     # Uncomment this when wanting to display the plot (Testing purposes)
     # plt.show()

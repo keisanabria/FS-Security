@@ -1,4 +1,5 @@
 import os
+import re
 
 # Path to the folder containing images
 folder_path = "assets"
@@ -11,9 +12,18 @@ for index, filename in enumerate(os.listdir(folder_path), start=1):
     # Filter for image files (optional: based on extensions)
     if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
         # Create a key-value pair
-        key = f"Image {index}"
+
         value = os.path.join(folder_path, filename)  # Full path to the image file
-        images[key] = value
+        year = re.findall(r'\d+', filename)  # Fetches the year in the image name
+
+        if year:  # Ensure that the year was found
+            key = f"Mapas del {year[0]}"
+
+            # If the key already exists, append the new image to the list, otherwise create a new list
+            if key in images:
+                images[key].append(value)
+            else:
+                images[key] = [value]
     
     # Uncomment to check if the file exists
         # if os.path.exists(value):
