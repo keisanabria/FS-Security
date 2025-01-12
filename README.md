@@ -41,11 +41,7 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- Commit the changes, verify that the Render.com website works
-- Try to:
-    (1) do the collapse step from TO-DO 
-    (2) send e-mail to professor with update, letting him know of what I was/wasn't able to complete  
-  under the time I have left
+- 
 
 Personal notes:
 API User Guide [1] - Guidelines

@@ -3,18 +3,15 @@
 import verifyFile
 import pandas as pd
 import cleaningData
-from datetime import datetime
+import acs_year
 
 def getInsecHouseholds():
-    # Get the current year
-    current_year = datetime.now().year
 
-    # API requires the previous year's data (as ACS releases lag by one year)
-    acs_year = current_year - 1
+    acsYear = acs_year.getACS_year()
 
-    verifyFile.verifyFile(f"data/live_data/{acs_year}households.csv", 'households')
+    verifyFile.verifyFile(f"data/live_data/{acsYear}households.csv", 'households')
 
-    households_df = pd.read_csv(f"data/live_data/{acs_year}households.csv")
+    households_df = pd.read_csv(f"data/live_data/{acsYear}households.csv")
 
     # Categorize the variable names accordingly
     total_households = households_df.iloc[:1].reset_index(drop=True)

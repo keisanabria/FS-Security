@@ -1,20 +1,16 @@
 import pandas as pd
 import geopandas as gpd
 import verifyFile
-from datetime import datetime
+import acs_year
 
 def getTotalCalories():
     # !!! More information about this module in Section 2.1 of README.md
 
-    # Get the current year
-    current_year = datetime.now().year
+    acsYear = acs_year.getACS_year()
 
-    # API requires the previous year's data (as ACS releases lag by one year)
-    acs_year = current_year - 1
+    verifyFile.verifyFile(f"data/live_data/{acsYear}popPerSubCou.csv", 'popPerSubCou')
 
-    verifyFile.verifyFile(f"data/live_data/{acs_year}popPerSubCou.csv", 'popPerSubCou')
-
-    pop_df = pd.read_csv(f"data/live_data/{acs_year}popPerSubCou.csv") # Read the CSV file into a DataFrame
+    pop_df = pd.read_csv(f"data/live_data/{acsYear}popPerSubCou.csv") # Read the CSV file into a DataFrame
 
     varGroup = {  
         1: "B01001_"
@@ -165,5 +161,13 @@ def getTotalCalories():
     calorie_df = calorie_df.reset_index(drop=True)
                         
     calorie_df['ucgid'] = ucgid['ucgid']
+
+    pop_df = pop_df.T.iloc[1:].reset_index(drop=True)
+
+    column_with_value = pop_df.iloc[0][pop_df.iloc[0] == 'NAME']
+
+    subCouNames = pd.DataFrame(pop_df[column_with_value.index[0]]).iloc[1:].reset_index(drop=True)
+
+    calorie_df['NAME'] = subCouNames
 
     return calorie_df
