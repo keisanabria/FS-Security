@@ -60,7 +60,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, git, re
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl, gunicorn, datetime, git, re
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)

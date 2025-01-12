@@ -4,9 +4,12 @@ on:
   schedule:
     - cron: '59 23 20 12 *' # Runs at 11:59 PM on December 20th (every year)
   workflow_dispatch: # Allows manual trigger
-  push:
-    branches:
-      - main
+
+  # Uncomment the step below if you want to allow the run of the workflow after pushing to the main branch
+  
+  # push:
+  #   branches:
+  #     - main
 
 permissions:
   contents: write # Grant write access to the repository contents
