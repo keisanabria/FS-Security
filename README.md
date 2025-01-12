@@ -38,6 +38,7 @@
 12. Create collapse of data from total_calories [8]
 13. Personalize the toml files from Ouslam's branch
 14. DUMP - Remove the verifyFile() , cleaningData() from total_calories.py since a module for the same function was created
+15. Use Render.com to deploy my website
 
 Recommended by Ouslam:
 *   Read: 158 a 172 lines of https://github.com/ouslan/mov/blob/main/src/data/data_pull.py
@@ -50,10 +51,8 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- Me quede arreglando linea 15 to 48 of main.py
 - Implement the functions needed to make the map update periodically
-    * Left making changes to the main module to make it run total_calories and insec_households every 
-    year and commit the changes to git, more information on how to do this in ChatGPT chat [9]
+    * Left doing the yml file to commit the changes to git, more information on how to do this in ChatGPT chat [9]
 - After testing, remove the ```acs_year = 2023
 from the following files: total_calories.py, update_data.py, and insec_households.py
 
@@ -74,7 +73,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git, subprocess
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git, subprocess, apscheduler
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)

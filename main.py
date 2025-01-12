@@ -4,6 +4,8 @@ from insec_households import insec_households
 import schedule
 import time
 import subprocess
+import os
+from apscheduler.schedulers.background import BackgroundScheduler
 
 # Show map 
 # def main() -> None:
@@ -12,44 +14,41 @@ import subprocess
 # if __name__ == "__main__":
 #     main()
 
-# ---------------------------------------------------------------------------
+def run_program():
+    try:
+        # Check the operating system
+        if os.name == "nt":  # Windows
+            python_path = r".venv\Scripts\python.exe"
+        else:  # macOS/Linux
+            python_path = ".venv/bin/python.exe"
 
-# def run_program():
-#     # Data-fetching code
-#     print("Running total_calories.py as a separate script...")
-#     subprocess.run(["python", "total_calories.py"])
+        # Verify if the Python executable exists
+        if not os.path.isfile(python_path):
+            raise FileNotFoundError(f"Python executable not found at {python_path}")
+        
+        print(f"Running total_calories.py and insec_households.py with Python at {python_path}...")
+        # Data-fetching code is located in total_calories.py and insec_households.py
+        subprocess.run([python_path, "total_calories.py"])
+        subprocess.run([python_path, "insec_households.py"])
 
-# run_program()
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        print("Ensure the virtual environment is properly set up and the script is being run from the correct location.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
-import os
-import subprocess
-import sys
+run_program()
 
-try:
-    # Check the operating system
-    if os.name == "nt":  # Windows
-        python_path = "./env/Scripts/python"
-    else:  # macOS/Linux
-        python_path = "./env/bin/python"
+# # Set up the scheduler
+# scheduler = BackgroundScheduler()
+# # Schedule the job for every year on December 31st each year
+# scheduler.add_job(run_program, 'cron', month=12, day=31, hour=00, minute=00)
 
-    # Verify if the Python executable exists
-    if not os.path.isfile(python_path):
-        raise FileNotFoundError(f"Python executable not found at {python_path}")
+# scheduler.start()
 
-    print(f"Running total_calories.py with Python at {python_path}...")
-    subprocess.run([python_path, "total_calories.py"])
-
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-    print("Ensure the virtual environment is properly set up and the script is being run from the correct location.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
-
-# ---------------------------------------------------------------------------
-
-# # Schedule the program for December 1st each year
-# schedule.every().year.at("2024-12-01 00:00").do(run_program)
-
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
+# # Keep the script running
+# try:
+#     while True:
+#         time.sleep(1)
+# except (KeyboardInterrupt, SystemExit):
+#     scheduler.shutdown()
