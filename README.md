@@ -51,10 +51,16 @@ Priority of tasks:
 - DUMP - To reduce space
 
 ### In progress:
-- Implement the functions needed to make the map update periodically
-    * Left doing the yml file to commit the changes to git, more information on how to do this in ChatGPT chat [9]
 - After testing, remove the ```acs_year = 2023
 from the following files: total_calories.py, update_data.py, and insec_households.py
+- Add the maps from years before
+- Edit the map creation so that Dash and Render.com show...
+    1. Year of the maps
+    2. Three maps with names
+        * This can be done either by:
+            (1) Doing a website for each map
+            (2) Doing three maps in one image
+            Whichever option is faster to make will be chosen.
 
 Personal notes:
 API User Guide [1] - Guidelines
@@ -73,7 +79,7 @@ API User Guide [1] - Guidelines
 
 ### Requirements
 - Have python 3.12.5+
-- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, schedule, time, git, subprocess, apscheduler
+- Install geopandas, mapclassify, requests, pandas, pathlib, plotly, shapely, plotly-geo*, pyshp*, dash, json, openpyxl*, gunicorn, datetime, git
     * Libraries with asterik were only installed for the Plotly map, which currently won't be used
 
 ### How to install dependencies (libraries)
