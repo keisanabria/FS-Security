@@ -1,0 +1,37 @@
+name: Run Module and Commit
+
+on:
+  schedule:
+    - cron: '59 23 31 12 *' # Runs at 11:59 PM on December 31st
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  run-and-commit:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.5'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the module
+        run: python main.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "keisanabria"
+          git config user.email "keishlyany.sanabria@upr.edu"
+          git add .
+          git commit -m "Automated commit: changes made by main.py" || echo "No changes to commit"
+          git push
+
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST https://api.render.com/deploy/srv-cti2smbtq21c73a03sjg?key=g6wdVoX_MQk
