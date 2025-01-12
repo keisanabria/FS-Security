@@ -10,12 +10,15 @@ server = app.server
 # List of images
 images = imageListGenerator.getImages()
 
+# Sort the keys of the images dictionary by the year extracted from the key in descending order
+sorted_keys = sorted(images.keys(), key=lambda x: int(x.split(" ")[-1]), reverse=True) # Extract the year and sort numerically
+
 # Layout
 app.layout = html.Div([
     dcc.Dropdown(
         id="image-dropdown",
-        options=[{"label": key, "value": key} for key in images.keys()],
-        value=list(images.keys())[0]
+        options=[{"label": key, "value": key} for key in sorted_keys],
+        value=sorted_keys[0]
     ),
     html.Div(id='image-display-container')
 ])
