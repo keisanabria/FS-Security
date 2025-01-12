@@ -25,7 +25,7 @@
 [x] LOW - Verify if .venv can be activated when the user runs the program from GitHub so that it can run smoothly
 [x] HIGH - Change the buttons of the Dash app to show the years of the map on the button-dropdown
 [x] HIGH - Change this to make the csv according to the year (e.g. '2023perPerSubCou')
-[ ] Create collapse of data from total_calories [8]
+[x] Create collapse of data from total_calories [8]
 [ ] Personalize the toml files from Ouslam's branch
 [ ] DUMP - Remove the verifyFile() , cleaningData() from total_calories.py since a module for the same function was created
 [x] Use Render.com to deploy my website
